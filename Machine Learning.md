@@ -5,6 +5,7 @@
 https://www.bilibili.com/video/BV1Pa411X76s?p=4&vd_source=6fd71d34326a08965fdb07842b0124a7
 ## 有监督的机器学习：回归与分类 Supervised Machine Learning Regression and Classification
 ### Week1 机器学习入门
+#### 监督学习和非监督学习
 **机器学习**：从广义上来说，机器学习是一种能够赋予机器学习的能力以此让它完成直接编程无法完成的功能的方法；但从实践的意义上来说，机器学习是一种通过利用数据，训练出模型，然后使用模型预测的一种方法
 
 **监督学习**：算法学习预测输入、输出或X到Y的映射，学习算法从引用正确答案中学习
@@ -22,5 +23,29 @@ https://www.bilibili.com/video/BV1Pa411X76s?p=4&vd_source=6fd71d34326a08965fdb07
 
 **有监督学习和无监督学习的区别**：
 ![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202407152350050.png)
+
+
+#### 线性回归模型
+Linear Regression model
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202407161330625.png)
+训练集：训练模型的数据
+x = 输入变量或者称为特征或输入特征
+y = 输出变量或者目标变量
+m = 训练样本数量
+(x, y) = 单个训练样本
+f = 模型函数function
+y-hat = y预测值
+线性回归方程: f(x) = wx + b
+单变量线性回归：具有一个输入变量的线性模型
+
+#### 代价函数
+Cost function
+平方误差成本函数
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202407161350321.png)
+f(x) = wx + b
+w 权重 b 偏置项
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202407161421997.png)
+
+#### 梯度下降
 ### Week2 多输入向量回归
 ### Week3 分类

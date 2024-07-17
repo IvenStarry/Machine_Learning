@@ -47,5 +47,19 @@ w 权重 b 偏置项
 ![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202407161421997.png)
 
 #### 梯度下降
+梯度下降原理示意图
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202407171729282.png)
+参数更新规则
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202407171735775.png)
+链式求导法则
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202407171740476.png)
+梯度下降原理图
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202407171737831.png)
+Alpha : 学习率
+设置太小 参数更新慢 时间变长
+设置太大 参数更新过快 无法收敛 代价函数达不到最小值
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202407171744195.png)
+随着梯度的变小，即使不改变Alpha值，参数的更新也会自动变得更加缓慢
+批量梯度下降（Batch gradient desent）:每一次梯度的下降都使用全部的训练样本
 ### Week2 多输入向量回归
 ### Week3 分类

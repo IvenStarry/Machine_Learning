@@ -15,7 +15,7 @@ https://www.bilibili.com/video/BV1Pa411X76s?p=4&vd_source=6fd71d34326a08965fdb07
 (2)**分类算法**：学习算法对一个类别进行预测，无需是数字
 ![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202407152313340.png)
 
-**无监督学习**：只有输入x而没有标签y，算法寻找数据中的某种结构或者某种模式
+**无监督学习**：只有输入x而没有标签y，算法寻找数据中的某种结构或者某种模式  
 (1)**聚类算法**：获取没有标签的数据并尝试自动将它们分组到集群中
 ![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202407152328784.png)
 (2)**异常检测**：检测异常事件，检测异常数据点
@@ -61,5 +61,52 @@ Alpha : 学习率
 ![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202407171744195.png)
 随着梯度的变小，即使不改变Alpha值，参数的更新也会自动变得更加缓慢
 批量梯度下降（Batch gradient desent）:每一次梯度的下降都使用全部的训练样本
+
 ### Week2 多输入向量回归
+#### 多维特征
+多元线性回归（区别于多元回归）
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202407181042940.png)
+
+#### 矢量化
+NumPy点函数在计算机中使用并行硬件，加快计算速度
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202407181258340.png)
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202407181255933.png)
+
+#### 用于多元线性回归的梯度下降法
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202407190928259.png)
+在线性回归可以替代梯度下降法的方法————正规方程法
+这种方法直接联立成本函数对w和对b偏导值分别等于0直接求解极值
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202407190933758.png)
+
+#### 特征缩放
+当有不同的特征，取值范围差别较大时，可能导致梯度下降运行缓慢，但我们可以重新缩放不同的特征，是它们都具有可比较的取值范围
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202407190949944.png)
+1.除以区间最大值
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202407190951860.png)
+2.均值归一化
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202407190952722.png)
+3.Z分数归一化 以0为中心
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202407190953228.png)
+需要进行特征缩放的例子
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202407190954220.png)
+
+#### 判断梯度下降是否收敛
+通过观察学习曲线下降情况或使用epsilon自动测试梯度下降是否正常
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202407191000005.png)
+
+#### 设置学习率
+不同的学习曲线特点对应着可能出现的不同的错误情况
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202407191007527.png)
+**调参思路**：观察学习曲线下降情况，令学习率三倍增长，直至取到一个成本函数不会下降太慢或往返震荡之间的适当的学习率
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202407191007329.png)
+
+#### 特征工程
+通过直觉或一些先验知识设计产生新的特征，通常采用转化或者是组合原特征的方法。
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202407191013769.png)
+
+#### 多项式回归
+通过多元线性回归和特征工程结合的思想可以帮助我们将曲线、非线性函数拟合入数据当中
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202407191019136.png)
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202407191019335.png)
+
 ### Week3 分类

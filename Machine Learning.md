@@ -1,7 +1,8 @@
 # 机器学习 Machine Learning
 **Github**：https://github.com/IvenStarry  
-**学习视频网站**：B站吴恩达机器学习2022版
+**学习视频网站**：B站吴恩达机器学习2022版  
 https://www.bilibili.com/video/BV1Pa411X76s?p=4&vd_source=6fd71d34326a08965fdb07842b0124a7
+
 ## 有监督的机器学习：回归与分类 Supervised Machine Learning Regression and Classification
 ### Week1 机器学习入门
 #### 监督学习和非监督学习
@@ -134,7 +135,7 @@ NumPy点函数在计算机中使用并行硬件，加快计算速度
 ![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202407260139080.png)
 
 #### 简化逻辑回归代价函数
-**最大似然估计**：已知实验结果，反推什么环境条件下得到实验结果的概率最大
+**最大似然估计**：已知实验结果，反推什么环境条件下得到实验结果的概率最大  
 抛硬币得到7次正面，三次反面，建立似然函数，求取L最大值时theta的取值
 ![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202407260156562.png)
 选择这个成本函数的原因是使用最大似然估计的思想推导出来的，简化思想，样本标签只为1或0，所以可以直接抵消另一种情况下选择的损失函数
@@ -173,3 +174,18 @@ NumPy点函数在计算机中使用并行硬件，加快计算速度
 #### 用于逻辑回归的正则方法
 类似于线性回归的正则方法参数更新规则，仅这里的f函数不同
 ![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202407260305397.png)
+
+## 高级学习算法 Advanced Learning Algorithms
+### Week1 神经网络
+#### 神经元和大脑
+生物学中的神经元与神经网络的神经元对比
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408031256457.png)
+
+#### 需求预测
+输入层--隐藏层--输出层
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408031436253.png)
+多层感知器
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408031436044.png)
+### Week2 神经网络训练
+### Week3 应用机器学习的建议
+### Week4 决策树

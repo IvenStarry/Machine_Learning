@@ -186,6 +186,12 @@ NumPy点函数在计算机中使用并行硬件，加快计算速度
 ![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408031436253.png)
 多层感知器
 ![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408031436044.png)
+
+#### 图像感知
+不同的隐藏层关注的图像细节有所不同，不同特征最终拼凑在一起识别图像
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408051757944.png)
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408051757184.png)
+
 ### Week2 神经网络训练
 ### Week3 应用机器学习的建议
 ### Week4 决策树

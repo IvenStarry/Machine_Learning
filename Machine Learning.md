@@ -192,6 +192,159 @@ NumPy点函数在计算机中使用并行硬件，加快计算速度
 ![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408051757944.png)
 ![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408051757184.png)
 
+#### 神经网络中的网络层
+网络层数计算：除了输入层以外的其他层
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408060952530.png)
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408060952788.png)
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408060952598.png)
+
+#### 更复杂的神经网络
+激活值a：上标为第几层的参数，下标为第几个参数
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408060954538.png)
+
+#### 神经网络前向传播
+计算每层的激活值
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408060956278.png)
+
+#### 如何用代码实现推理
+与逻辑回归类似，设置阈值输出预测结果
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408060956723.png)
+
+#### Tensorflow中的数据形式
+Tensorflow使用矩阵表示数据，而非一维数组，这样在内部的计算效率更高
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408060957831.png)
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408060958428.png)
+
+#### 搭建一个神经网络
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408060958673.png)
+
+#### 单个网络层上的前向传播
+前向传播的python实现
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408061651258.png)
+
+#### 前向传播的一般实现
+dense函数：输入上一层的激活，给定当前层的函数，返回下一层的激活  
+sequential函数：按顺序将密集层串联起来，便于神经网络实现前向传播
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408061659626.png)
+
+#### 强人工智能
+**AI**
+1. **ANI**(人工狭义智能)：用于完成一个特定的任务，完成度较高，有较高价值
+2. **AGI**(通用人工智能)：构建可以做任何普通人能做的人工智能系统
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408061643611.png)
+
+视觉与听觉的神经元没有本质区别，而是数据的输入导致的神经元内参数不同，从而导致功能不同，例如，听力丧失的人，听觉皮层会通过学习看到的视觉图像学会看的能力，视觉能力会增强
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408061644163.png)
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408061645553.png)
+
+#### 神经网络为何如此高效 
+神经网络中前向传播的矢量化实现  
+matmul矩阵乘法函数
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408061651474.png)
+
+#### 矩阵乘法
+向量点积
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408061653766.png)
+向量矩阵乘法
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408061653265.png)
+矩阵矩阵乘法
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408061653768.png)
+
+#### 矩阵乘法规则
+矩阵形状 (m,a)*(a,n) = (m,n) (a长度必须相等)
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408061654776.png)
+
+#### 矩阵乘法代码
+matmul原理
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408061657864.png)
+
 ### Week2 神经网络训练
+#### Tensorflow实现
+
+#### 模型训练细节
+
+#### Sigmoid激活函数的替代方案
+
+#### 如何选择激活函数
+
+#### 多分类问题
+
+#### Softmax
+
+#### 神经网络的Softmax输出
+
+#### Softmax的改进实现
+
+#### 多个输出的分类
+
+#### 高级优化方法
+
+#### 其他的网络层类型
+
+#### 什么是导数
+
+#### 计算图
+
+#### 大型神经网络案例
+
 ### Week3 应用机器学习的建议
+#### 决定下一步做什么
+
+#### 模型评估
+
+#### 模型选择&交叉验证测试集的训练方法
+
+#### 通过偏差与方法进行诊断
+
+#### 正则化、偏差、方差
+
+#### 制定一个用于性能评估的基准
+
+#### 学习曲线
+
+#### 决定下一步做什么
+
+#### 方差与偏差
+
+#### 机器学习开发的迭代
+
+#### 误差分析
+
+#### 添加更多数据
+
+#### 迁移学习--使用其他任务中的数据
+
+#### 机器学习项目的完整周期
+
+#### 公平、偏见与伦理
+
+#### 倾斜数据集的误差指标
+
+#### 精确率与召回率的权衡
+
 ### Week4 决策树
+#### 决策树模型
+
+#### 学习过程
+
+#### 纯度
+
+#### 选择拆分信息增益
+
+#### 整合
+
+#### 独热编码One-hot
+
+#### 连续有价值的功能
+
+#### 回归树
+
+#### 使用多个决策树
+
+#### 有放回抽样
+
+#### 随机森林
+
+#### XGBoost
+
+#### 何时使用决策树

@@ -262,26 +262,88 @@ matmul原理
 
 ### Week2 神经网络训练
 #### Tensorflow实现
+1. `Sequential` 连接网络层 `Dense` 创建网络层
+2. `complie` 指定损失函数和优化器
+3. `fit` 输入样本X和样本标签Y 输入时期Epoch(梯度下降次数，参数更新次数) 执行梯度下降
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408080949663.png)
 
 #### 模型训练细节
+1. 指定逻辑回归的输入到输出函数
+2. 指定损失函数和成本函数 损失函数L是学习算法对于单个训练样例预测结果和样本标签的损失，成本函数实是整个训练集上计算的损失函数的平均值(这里的成本函数 J 中的 W B 不是单纯的向量，指的是每一层每个神经元所对应的参数的集合)
+3. 使用一种特定的梯度下降算法最小化 w,b 的成本函数J，将其作为参数 w,b 的函数最小化
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408080950647.png)
+- 逻辑损失也称为**二元交叉熵** binary cross entropy
+- **均方损失函数** mean squared error
 
 #### Sigmoid激活函数的替代方案
+- **线性激活函数** (相当于没有使用激活函数)
+- **ReLU激活函数**
+- **Sigmoid激活函数**
+- **Sofxmax激活函数**
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408081002597.png)
 
 #### 如何选择激活函数
+1. 对于**输出层**：
+- sigmoid函数：用于二元分类问题
+- 线性激活函数：用于取值范围任意的回归问题(股价涨跌)
+- ReLU激活函数：用于只能取非负值的回归问题(房价预测)
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408081500672.png)
+2. 对于**隐藏层**：常使用**ReLU函数**，因为ReLU函数只有左侧区域平坦，而Sigmoid函数在z值较小或较大时均平坦，在平坦的区域梯度下降较慢(尽管梯度下降优化的是成本函数 J 而非激活函数，但激活函数是计算的一部分，直接导致了成本函数 J 有更多的地方也是平坦的，并且梯度很小，减慢了学习速度)
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408081501532.png)
+
+#### 为什么模型需要激活函数
+如果每一层都使用线性激活函数，这样与线性回归没什么不同，这个神经网络无法适应比线性回归模型更复杂的特征；同理，如果隐藏层全使用先行激活函数，输出层采用sigmoid函数，神经网络等同于逻辑回归模型，无法完成其他复杂任务。
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408081514123.png)
 
 #### 多分类问题
+对于样本标签有多个结果可能时，选择不同的分类算法，实现决策边界
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408081535048.png)
 
 #### Softmax
+用e为底数的作用时保证最终获得概率值为正数  
+若 N=2 softmax回归和逻辑回归最终计算的结果基本相同
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408081608725.png)
+计算损失函数时，根据样本的标签值，损失值仅被计算一次，我们希望模型对于样本标签这一类别的预测概率尽可能大，从而损失尽可能小
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408081610165.png)
 
 #### 神经网络的Softmax输出
+输出层的激活值特点
+- 逻辑回归：只跟 z1 有关
+- softmax：跟 全部z值 有关
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408081636001.png)
+
+多分类任务的损失函数:sparse categorical cross entropy
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408081641837.png)
 
 #### Softmax的改进实现
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408090008772.png)
+因为计算机的硬件缺陷，保存数据总会损失一部分精度，如果逐层计算激活值a是有误差的，带着误差的a去计算loss误差就更大了，由于CPU精度高于存储精度，所以可以一起计算a，从代码层面规避计算机硬件缺陷
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408090010241.png)
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408090026774.png)
+具体操作如下：将输出层设置为仅使用线性激活函数，并将激活函数和交叉熵损失到图片下面所示的损失函数规范当中，在 `from_logits` 参数中设置
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408090017343.png)
+> 注意现在的神经网络输出是 z ，而不是预测概率 a
 
 #### 多个输出的分类
+- **多类分类**：每个实例里标签有多个类别，神经网络预测最终结果只能是多个标签中的一个
+- **多标签分类**：每个实例有多个标签同时存在，如一张图片中识别是否有车，是否有行人，是否有公交车
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408090047636.png)
+
+多标签分类输出层的激活值是一个向量，分别表示多个标签的概率
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408090051825.png)
 
 #### 高级优化方法
+**自适应学习率算法--Adam**
+- 如果 *w b* 持续朝着大致的方向运动，增加学习率
+- 如果 *w b* 持续振荡，减小学习率
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408090123913.png)
 
 #### 其他的网络层类型
+- **密集层**：后一层隐藏层是前一层的每个激活值的函数
+- **卷积层**：每个神经元只查看前一层的部分输入  
+
+优点：加速计算，需要更少的训练数据，减少过拟合风险
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408090214075.png)
 
 #### 什么是导数
 

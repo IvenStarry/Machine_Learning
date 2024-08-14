@@ -346,29 +346,144 @@ matmul原理
 ![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408090214075.png)
 
 #### 什么是导数
+在本节中，导数可以表示为如下式子：如果 w 上升了 Epsilon，那么 w 的 J 上升了多少常数 k 乘以 Epsilon，这个常数 k 就是导数，k 取决于函数 J 是什么，以及 w 的值是多少
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408120938217.png)
+**导数**：一个函数在某一点上的瞬时变化率。几何上，导数代表了函数图形在该点上的切线斜率。
+**计算导数的库**: sympy
+```python
+import sympy
+J, w = sympy.symbols('J, w') # 注明符号
+J = w ** 3
+print(J)
+dJ_dw = sympy.diff(J, w)
+print(dJ_dw) # 计算导数
+print(dJ_dw.subs([(w, 2)])) # 将 w=2 带入该表达式求值
+```
 
 #### 计算图
+**计算图**：用于表示数学计算或程序执行的图结构。它在深度学习和神经网络的实现中尤为重要，展示了如何计算神经网络输出a的前向传播和反向传播的步骤
+反向传播计算导数值思想：链式求导法则
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408120958657.png)
+反向传播是有效计算导数值的方法，因为如果计算了 J 对 a 的导数值一次，就可以一起计算 J 对 w 和 J 对 b 的导数值，可以大大减小计算步骤
+- 节点Node: 图中黄色框图
+- 参数Parameter: 图中蓝色参数
+
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408121005830.png)
 
 #### 大型神经网络案例
+Tensorflow、PyTorch框架的**优势**：自动求导/自动微分机制
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408121556394.png)
 
 ### Week3 应用机器学习的建议
 #### 决定下一步做什么
+调试学习算法的方法：
+- 获取更多训练样本
+- 尝试更少的特征
+- 尝试额外的特征
+- 尝试多项式特征
+- 尝试减小 λ
+- 尝试增加 λ
+
+通过使用不同的诊断方法，可以指导自己如何提高算法的性能，选择正确的调试方法
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408121559463.png)
 
 #### 模型评估
+如果输入特征过多，无法绘制 f 的函数图像，则需要别的方法来评估模型性能
+**训练集**和**测试集**的概念:
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408121622361.png)
+J test 和 J train 不是使用逻辑损失来计算测试误差，而是使用训练误差来衡量测试集的分数和算法错误分类的分数(区别于成本函数 Cost)
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408121627361.png)
+> 不包含正则化项可以更好地了解学习算法表现如何
 
 #### 模型选择&交叉验证测试集的训练方法
+- ***第一种方式***：把数据集全部作为训练集，然后用训练集训练模型，用训练集验证模型（如果有多个模型需要进行选择，那么最后选出训练误差最小的那个模型作为最好的模型）
+**方法缺陷**：训练误差(J train)不是一个很好的评估模型性能的指标，不能表示它在新例子的泛化能力如何，因为训练误差可以无限接近0(可能为过拟合情况)，远低于实际的泛化误差，因此使用测试误差(J test)会更好。  
+- ***第二种方式***：把数据集随机分为训练集和测试集，然后用训练集训练模型，用测试集验证模型（如果有多个模型需要进行选择，那么最后选出测试误差最小的那个模型作为最好的模型）
+**方法缺陷**(三种思路)：
+  1. 训练集用来训练参数 w 和 b ，但不能评估 w 和 b 的好坏，如果测试集用来选择多项式模型(即参数 d)，同理测试集自己也不能用来评估参数 d 的好坏。
+  2. 因为选择参数 d 的过程是依赖于测试集数据的，这个 d 值可能恰好只是对于测试集来说的最优，但如果再用这个模型在测试集上评估性能，就不准确了，即对模型泛化能力的乐观估计。
+  3. 模型评估意义在于了解模型对于新数据的泛化能力，此时模型已经确定，但选择模型的过程同样还在训练模型的过程中，如果使用测试误差最小的模型，那么此时模型评估的就不是新数据的泛化能力，而是在训练模型已经使用过的测试集(旧数据)，因此此方法有缺陷。
+**总结**：J test 可以评估模型好坏，但不是模型选择的标准。如果想要在多个模型中选择效果最好的模型(超参数)，应该引入交叉验证集的概念。
+- ***第三种方式***：把数据集随机分为训练集，验证集和测试集，然后用训练集训练模型，用验证集验证模型，根据情况不断调整模型，选择出其中最好的模型，再用训练集和验证集数据训练出一个最终的模型，最后用测试集评估最终的模型
+**交叉验证集(验证集/开发集)**：用来检查或信任检查不同模型的有效性或准确性，寻找超参数
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408121755811.png)
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408121856124.png)
+**模型训练与选择方法**：先训练每一个模型的最优参数 -> 交叉验证寻找最好的模型 -> 测试误差进行模型评估  
+**方法优点**：这种方法可以确保模型性能评估更公平，而不是对模型的泛化能力的乐观估计
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408121756025.png)
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408121756241.png)
 
 #### 通过偏差与方法进行诊断
+- 高偏差(High bias -> underfit)：J train 值很高, J cv 值很高
+- 高方差(High variance -> overfit)：J train 值很低, J cv 值很高，J cv 远高于J train，模型在看到的数据上比在没看到的数据上做的更好
+- 刚好拟合(Just right)：J train 值很低, J cv 值很低
+
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408130941800.png)
+偏差和方差对应着模型的**拟合能力**和**泛化能力**，在神经网络中，当然有的模型拟合能力和泛化能力都很差，既高偏差又高方差
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408130942515.png)
 
 #### 正则化、偏差、方差
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408130952970.png)
+利用交叉误差来为正则化参数 λ 选择一个合适的值
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408130953418.png)
+选择不同的 λ 值对应着不同的 J train 和 J cv 情况
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408130953491.png)
 
 #### 制定一个用于性能评估的基准
+对于语音识别问题，即便训练误差看起来很大，但与人类表现水平相比较，差距很小，即这个模型在训练集上的表现跟人类去识别语音的能力相差无几；训练误差与交叉验证误差相比，差距较大，因此这个模型更可能有高方差问题而非高偏差问题
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408131003471.png)
+你希望模型可以达到什么样的误差/期望性能水平？(baseline)
+- 人类表现水平
+- 竞品算法表现
+- 根据经验猜测
+
+评判模型性能的参数
+|条件|训练误差与基准表现的差值较大|训练误差与基准表现的差值较小|
+|:---:|:---:|:---:|
+|**训练误差与交叉验证误差的差值大**|高偏差|高方差|
+|**训练误差与交叉验证误差的差值小**|几乎不可能出现|恰好拟合|
+
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408131007435.png)
 
 #### 学习曲线
+**学习曲线**：帮助理解学习算法如何作为它拥有的经验量的函数的方法，经验指的是如它拥有的训练示例的数量
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408131518157.png)
+- 训练集越大，模型越难完美拟合所有训练示例
+- 交叉验证误差通常高于训练误差，因为学习算法将参数拟合到训练集
+
+对于具有**高偏差**的学习算法：
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408131519531.png)
+- 即使得到越来越多的训练样本，模型也不会有太多变化(线性回归完成不了非线性任务)
+- 基准性能水平与 J train 和 J cv 均有较大差距
+
+对于具有**高方差**的学习算法：
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408131520296.png)
+- J cv 远大于 J train ，在训练集上的表现比在交叉验证集上好得多
+- J train < 基准性能水平 < J cv
+- 获取更多训练样本，训练误差将上升，交叉验证误差会下降
 
 #### 决定下一步做什么
+什么情况下使用什么样的调试学习算法的方法：
+1. 高方差 (过拟合)
+   - 获取更多训练样本
+   - 尝试更少的特征
+   - 尝试增加 λ
+2. 高偏差 (欠拟合)
+   - 尝试额外的特征
+   - 尝试多项式特征
+   - 尝试减小 λ
 
 #### 方差与偏差
+为了获得更好的模型，需要的操作：**权衡偏差和方差**
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408131633170.png)
+调试流程：
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408131629934.png)
+神经网络正则化：
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408131631461.png)
+小结：
+- 具有良好的正则化的大型神经网络通常与较小的神经网络一样好或更好，只要正则化是正确的，拥有一个更大的神经网络几乎没有坏处。
+- 扩大神经网络结构可能带来的负面影响：减慢训练和推理过程
+- 只要训练集不是很大，那么一个新的网络，尤其是大型神经网络往往是一个低偏差机器
 
 #### 机器学习开发的迭代
 

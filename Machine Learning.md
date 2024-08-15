@@ -497,25 +497,96 @@ J test 和 J train 不是使用逻辑损失来计算测试误差，而是使用�
 - 设计算法去发现错误拼写
 ![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408150935165.png)
 
-#### 误差分析
+#### 错误分析
 诊断方法：
 - 偏差、方差分析
-- 偏差分析
+- 错误分析
 
 抽取错误样本中的一个子集查看错误的种类，根据错误示例种类出现的次数决定改善模型的优先级(去大费周章地改进一些出现频率较小的错误收效很低)
 ![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408151002407.png)
 
 #### 添加更多数据
+**数据增强**：修改一个已存在的训练样本去生成一个新的训练样本
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408160109707.png)
+引入扭曲：字母扭曲，音频噪音
+添加完全随机或无意义的噪音进数据通常没有任何帮助
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408160110408.png)
+**数据合成**：使用人工数据创建全新的训练样本
+OCR字符识别任务：利用电脑字体截图生成训练样本
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408160114009.png)
+**数据工程**：
+常规以模型为中心的方法：修改算法和模型结构提升模型质量
+以数据为中心的方法：提升数据质量部(在现代算法逐渐完善的情况下，现在数据工程更加注重对数据质量的改善)
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408160116868.png)
 
 #### 迁移学习--使用其他任务中的数据
+**迁移学习思想**：使用其他类似、已训练完成的神经网络任务的除了输出层以外的所有层作为参数的起点，然后运行优化算法
+**迁移学习步骤**：
+1. **监督预训练**：在大型数据集上训练得到参数
+   - 对于很多神经网络，已经有研究人员在大数据集上训练好了参数，可以直接使用下载别人训练好的神经网络，但应使用相同的输入特征类型(图像、音频、文本)
+2. **微调**：从已初始化或从监督预训练中获得的参数。进一步梯度下降微调权重，以适应自己的任务
+   - 训练小训练集：只训练输出层参数
+   - 训练大训练集：训练所有参数(以已经被训练的网络模型的参数做初始化)
+
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408160144422.png)
+**迁移学习原理**：神经网络学习了通用的图像特征(边缘，拐角，曲线/基本形状)
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408160144811.png)
 
 #### 机器学习项目的完整周期
+1. 确定项目范围：决定项目是什么
+2. 收集数据：确定并收集数据
+3. 训练模型：训练，错误分析，迭代改进
+4. 在生产中部署：部署、监视并维护系统
+
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408160157678.png)
+**部署过程**：
+通过***API***和***推理服务器***调用应用程序
+软件工程所需要完成的工作：
+- 确保预测的可靠和有效
+- 管理大量用户的扩展
+- 记录用户数据(用户隐私同意)
+- 监视系统
+- 更新模型
+
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408160158656.png)
 
 #### 公平、偏见与伦理
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408160204245.png)
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408160205625.png)
+准则：在部署前检查系统可能存在的危害
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408160205823.png)
 
 #### 倾斜数据集的误差指标
+**倾斜数据集**：一个数据集中的正面和负面例子的比例非常不平衡，比如数据集中，结果为1的占比20%，结果为0的占比80%
+
+*e.g* ：如果一组实验组中只有0.5%是患有稀有病因的病人( 1 )，其余结果是正常人( 0 )。一个模型的预测准确度是99.5%，预测了所有数据的结果都是正常，这个模型的准确度很高，但是预测不出稀有病例，这不能代表这个模型是好模型。因此需要引入其他的误差度量方式来评估模型好坏。
+
+**混淆矩阵**
+- True Positive  （真正, TP）被模型预测为正的正样本
+- True Negative （真负 , TN）被模型预测为负的负样本
+- False Positive （假正, FP）被模型预测为正的负样本
+- False Negative（假负 , FN）被模型预测为负的正样本
+
+***精确率 (Precision)*** = *TP / ( TP + FP )*  (所有判别为真的样本，找的准不准)
+***召回率 (Recall)*** = *TP / ( TP + FN )*  (所有标签为真的样本，找的全不全)
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408160230510.png)
 
 #### 精确率与召回率的权衡
+对于逻辑回归问题：
+- 当提高阈值，能提高精确率，但是会降低召回率
+   (宁可错过一千，不愿错杀一个)
+- 当降低阈值，能提高召回率，但是会降低精确率
+  (宁可错杀一千，不愿放过一个)
+
+小结：精确率与召回率成**负相关**关系
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408160246830.png)
+**如何权衡精确率和召回率**：
+- 根据P-R曲线图手动设置阈值，权衡利弊
+- 使用 F1 score (也称为调和平均数)，是一种取平均值的方法，结合精确率和召回率，若精确率和召回率某一方过低会执行惩罚，最终计算结果越大说明模型质量更高。
+
+***F1 score***（P为精确率，R为召回率）：
+***F1 score*** = *1 / ( ( 1 / P + 1 / R ) / 2)* = *2 P R / (P + R)*
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408160252287.png)
 
 ### Week4 决策树
 #### 决策树模型

@@ -486,8 +486,24 @@ J test 和 J train 不是使用逻辑损失来计算测试误差，而是使用�
 - 只要训练集不是很大，那么一个新的网络，尤其是大型神经网络往往是一个低偏差机器
 
 #### 机器学习开发的迭代
+**机器学习模型建立循环**：选择结构 -> 训练模型 -> 诊断模型 -> 选择结构
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408150930339.png)
+垃圾邮件分类器的建立
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408150935231.png)
+改进措施：
+- 收集更多数据
+- 建立更复杂的特征(邮件路由 经过地址)
+- 根据电子邮件正文定义更复杂的特征(不同单词不同意思)
+- 设计算法去发现错误拼写
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408150935165.png)
 
 #### 误差分析
+诊断方法：
+- 偏差、方差分析
+- 偏差分析
+
+抽取错误样本中的一个子集查看错误的种类，根据错误示例种类出现的次数决定改善模型的优先级(去大费周章地改进一些出现频率较小的错误收效很低)
+![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408151002407.png)
 
 #### 添加更多数据
 

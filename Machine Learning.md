@@ -631,7 +631,7 @@ OCR字符识别任务：利用电脑字体截图生成训练样本
 > $\lim\limits_{x \to 0} p_i \cdot log2(p_i) = 0$
 
 #### 选择拆分信息增益
-**信息增益**：熵的减少，这个值越大说明纯度提升越大，用于选择分裂的特征
+**信息增益**：熵的减少，这个值越大说明纯度提升越大，用于选择分裂的特征  
 节点后的熵值应计算左右两个分支熵的加权平均值，这里的权重指进入每个分支的示例与总示例的比值
 ![](https://cdn.jsdelivr.net/gh/IvenStarry/Image/MarkdownImage/202408191530172.png)
 **信息增益公式**：$H(p_i^{root}) = (w^{left} \cdot H(p_i^{left}) + w^{right} \cdot H(p_i^{right}))$
